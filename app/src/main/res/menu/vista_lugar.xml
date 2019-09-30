@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        tools:context="org.example.mislugares.ScrollingActivity">
+
+    <item android:id="@+id/accion_compartir"
+          android:icon="@android:drawable/ic_menu_share"
+          android:title="Compartir"
+          android:orderInCategory="10"
+          app:showAsAction="ifRoom">
+    </item>
+
+    <item android:id="@+id/como_llegar"
+        android:icon="@android:drawable/ic_menu_directions"
+        android:title="Como Llegar"
+        android:orderInCategory="20"
+        app:showAsAction="ifRoom">
+    </item>
+
+    <item android:id="@+id/editar"
+        android:icon="@android:drawable/ic_menu_edit"
+        android:title="Editar"
+        android:orderInCategory="30"
+        app:showAsAction="ifRoom">
+    </item>
+
+    <item android:id="@+id/borrar"
+        android:icon="@android:drawable/ic_menu_delete"
+        android:title="Borrar"
+        android:orderInCategory="40"
+        app:showAsAction="ifRoom">
+    </item>
+
+</menu>
