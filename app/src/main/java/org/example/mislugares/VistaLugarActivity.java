@@ -19,12 +19,17 @@ import java.util.Date;
 public class VistaLugarActivity extends AppCompatActivity {
     private long id;
     private Lugar lugar;
+    private int RESULTADO_EDITAR = 1;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.vista_lugar);
         Bundle extras = getIntent().getExtras();
         id = extras.getLong("id", -1);
+        actualizarVistas();
+    }
+
+    private void actualizarVistas(){
         lugar = ScrollingActivity.lugares.elemento((int) id);
         TextView nombre = (TextView) findViewById(R.id.nombre);
         nombre.setText(lugar.getNombre());
@@ -39,9 +44,9 @@ public class VistaLugarActivity extends AppCompatActivity {
         //if(lugar.getTelefono()==0){
         //    findViewById(R.id.telefono).setVisibility(View.GONE);
         //}else {
-            findViewById(R.id.telefono).setVisibility(View.VISIBLE);
-            TextView telefono = findViewById(R.id.telefono);
-            telefono.setText(Integer.toString(lugar.getTelefono()));
+        findViewById(R.id.telefono).setVisibility(View.VISIBLE);
+        TextView telefono = findViewById(R.id.telefono);
+        telefono.setText(Integer.toString(lugar.getTelefono()));
         //}
         TextView url = (TextView) findViewById(R.id.url);
         url.setText(lugar.getUrl());
@@ -79,7 +84,8 @@ public class VistaLugarActivity extends AppCompatActivity {
             case R.id.editar:
                 Intent intent = new Intent(this,edicionLugarActivity.class);
                 intent.putExtra("id",id);
-                startActivity(intent);
+                //startActivity(intent);
+                startActivityForResult(intent,RESULTADO_EDITAR);
                 return true;
             case R.id.borrar:
                 dialogBorrar(null);
@@ -88,6 +94,14 @@ public class VistaLugarActivity extends AppCompatActivity {
                 return super.onOptionsItemSelected(item);
         }
 
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        if(requestCode==RESULTADO_EDITAR){
+            actualizarVistas();
+            findViewById(R.id.scrollView1).invalidate();
+        }
     }
 
     public void dialogBorrar(View view){

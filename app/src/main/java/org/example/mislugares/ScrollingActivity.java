@@ -7,7 +7,10 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -15,6 +18,10 @@ import android.widget.EditText;
 
 public class ScrollingActivity extends AppCompatActivity {
     public static Lugares lugares = new LugaresVector();
+    private RecyclerView recyclerView;
+    public AdaptadorLugares adaptador;
+    private RecyclerView.LayoutManager layoutManager;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,6 +37,24 @@ public class ScrollingActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
+            }
+        });
+
+        recyclerView = findViewById(R.id.recycler_view);
+        adaptador = new AdaptadorLugares(this,lugares);
+        recyclerView.setAdapter(adaptador);
+        layoutManager = new LinearLayoutManager(this);
+        recyclerView.setLayoutManager(layoutManager);
+
+        adaptador.setOnItemClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int intid = recyclerView.getChildAdapterPosition(v);
+                Log.e("Mensaje", "onClick: "+intid);
+                Long id = new Long(intid);
+                Intent i = new Intent(ScrollingActivity.this,VistaLugarActivity.class);
+                i.putExtra("id",id);
+                startActivity(i);
             }
         });
 
